@@ -11,7 +11,11 @@ import re
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
 
-
+# The input is a 9X9 matrix, output is the top right corner values in 3x3 matrix.
+def solve_5bd6f4ac(x):
+    # Slicing the input matrix
+    x = x[:3,-3:]
+    return x
 
 def main():
     # Find all the functions defined in this file whose names are
