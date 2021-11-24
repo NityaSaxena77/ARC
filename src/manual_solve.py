@@ -16,6 +16,24 @@ def solve_5bd6f4ac(x):
     # Slicing the input matrix
     x = x[:3,-3:]
     return x
+	
+def solve_3c9b0459(x):
+    result = list()
+    #swap columns
+    for indx in range(len(x)):
+        first_ele = x[indx][0]
+        last_ele = x[indx][-1]
+        x[indx][0] = last_ele
+        x[indx][-1] = first_ele
+        result.append(x[indx])
+    
+    first_row = result[0]
+    last_row = result[-1]
+    #swap rows
+    result[-1] = first_row
+    result[0] = last_row
+    x = np.array(result)
+    return x
 
 def main():
     # Find all the functions defined in this file whose names are
