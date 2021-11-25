@@ -72,7 +72,58 @@ def solve_d9fac9be(x):
             
     x = np.array(sliced_matrix[1][1]).reshape(1,1)
     return x
-	
+
+def solve_25d487eb(x):
+    # detect the anomaly colour
+    anomaly_colour = 0
+    unique, counts = np.unique(x, return_counts=True)
+    unique = list(unique)
+    counts = list(counts)
+    unique_val = unique[counts.index(1)]
+    col = 0
+    row_x, col_x = x.shape
+    
+    # check the position of the unique value and the direction in which we need to fill the values.
+    for idx in range(len(x)):
+        if unique_val in x[idx]:
+            col = list(x[idx]).index(unique_val)
+            # check in which direction should the values be added.
+            # Values are added in the opposite direction 
+            if x[idx][col - 1] == 0:
+                # Fill the values to the right of the last occurance of coloured value
+                index_last_non_zero = np.max(np.nonzero(x[idx]))
+                diff_indx = col_x - (index_last_non_zero+1)
+                temp_list = list(x[idx][:index_last_non_zero+1]) + list(([unique_val] * diff_indx))
+                x[idx] = np.array(temp_list)
+                break
+            elif x[idx][col + 1] == 0:
+                # Fill the values to the left from the start of the row to the first occurance of coloured value
+                index_first_non_zero = np.min(np.nonzero(x[idx]))
+                temp_list = list([unique_val] * (index_first_non_zero)) + list(x[idx][index_first_non_zero:])
+                x[idx] = np.array(temp_list)
+                break
+            elif x[idx + 1][col] == 0:
+                # Fill the values in the columnwise from the start of the column to the first occurance of the colour value
+                left_col = x[:,:col]
+                right_col = x[:,col+1:]
+                col_val = x[:,col]
+                index_first_non_zero = np.min(np.nonzero(col_val))
+                temp_list = list([unique_val] * (index_first_non_zero)) + list(col_val[index_first_non_zero:])
+                x = np.column_stack((left_col,temp_list, right_col))
+                break
+            elif x[idx - 1][col] == 0:
+                # # Fill the values in the columnwise from the last occurance of the colour value to the end of the column
+                left_col = x[:,:col]
+                right_col = x[:,col+1:]
+                col_val = x[:,col]
+                index_last_non_zero = np.max(np.nonzero(col_val))
+                diff_indx = row_x - (index_last_non_zero+1)
+                temp_list = list(col_val[:index_last_non_zero+1]) + list(([unique_val] * diff_indx))
+                x = np.column_stack((left_col, temp_list, right_col))
+                break
+        
+    return x
+
 def main():
     # Find all the functions defined in this file whose names are
     # like solve_abcd1234(), and run them.
