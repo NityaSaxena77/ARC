@@ -57,6 +57,22 @@ def solve_b91ae062(x):
         
     return x	
 
+def solve_d9fac9be(x):
+    indicator = 0
+    for val in range(len(x)):
+        for indx in range(len(x[val])):
+            if indx <= len(x[val])-3:
+                # check for the repeating pattern
+                if x[val][indx] != 0 and list(x[val][indx:indx+3]) == [x[val][indx]]*3:
+                    sliced_matrix = x[val:val+3,indx:indx+3]
+                    indicator = 1
+                    break
+        if indicator == 1:
+            break
+            
+    x = np.array(sliced_matrix[1][1]).reshape(1,1)
+    return x
+	
 def main():
     # Find all the functions defined in this file whose names are
     # like solve_abcd1234(), and run them.
