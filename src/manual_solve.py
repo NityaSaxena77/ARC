@@ -124,6 +124,33 @@ def solve_25d487eb(x):
         
     return x
 
+def solve_a61ba2ce(x):
+    silce_matrix_list = list()
+    colour_history = list()
+    for row in range(len(x)):
+        for ele in x[row]:
+            # Find all the submatrix
+            if ele != 0 and ele not in colour_history:
+                colour_history.append(ele)
+                indx_ele = list(x[row]).index(ele)
+                slice_matrix = x[row:row+2, indx_ele: indx_ele+2]
+                count = np.count_nonzero(slice_matrix)
+                if count != 3:
+                    slice_matrix = x[row:row+2, indx_ele-1: indx_ele+1]
+                silce_matrix_list.append(slice_matrix)
+    
+    # Check if the middle elements are 0
+    for ele in permutations(silce_matrix_list):
+        ele_list = list(ele)
+        left = np.column_stack(ele[:len(ele_list)//2])
+        right = np.column_stack(ele[len(ele_list)//2:])
+        result = np.concatenate((left, right), axis=0)
+        if np.all((result[1:3,1:3] == 0)):
+            x = result
+            break
+    
+    return x	
+	
 def main():
     # Find all the functions defined in this file whose names are
     # like solve_abcd1234(), and run them.
