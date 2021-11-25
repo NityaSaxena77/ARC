@@ -35,6 +35,28 @@ def solve_3c9b0459(x):
     x = np.array(result)
     return x
 
+def solve_b91ae062(x):
+    # Find the number of unique colours
+    unique = np.unique(x)
+    # unique colours except black
+    unique_colours = len(list(unique)) - 1
+    result_col = list()
+    for row in x:
+        ele_list = list()
+        for ele in row:
+            for reps in range(0,unique_colours):
+                ele_list.append(ele)
+        result_col.append(ele_list)
+    
+    result_row = list()
+    for r in result_col:
+        for rep in range(0,unique_colours):
+            result_row.append(r)
+                        
+    x = np.array(result_row)
+        
+    return x	
+
 def main():
     # Find all the functions defined in this file whose names are
     # like solve_abcd1234(), and run them.
