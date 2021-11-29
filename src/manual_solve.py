@@ -39,9 +39,7 @@ np.count_nonzero: This function was used to count the number of cells in the inp
 
 """
 5bd6f4ac.json: The input is a 9X9 matrix of random colours. The solution to this is the top right corner values in 3x3 matrix.
-
 The solve function carries out the transformation by slicing the input matrix from the top right to produce a 3x3 matrix.
-
 All the training and test cases are solved correctly.
 """
 def solve_5bd6f4ac(x):
@@ -51,9 +49,7 @@ def solve_5bd6f4ac(x):
 
 """
 3c9b0459.json: The input is a 3x3 matrix with different colours. The solution is to rotate the matrix clockwise twice.
-
 To achieve the clockwise rotation twice, the solve function first swaps the columns of the input matrix followed by the rows of the matrix.
-
 All the training and test cases are solved correctly.
 """	
 def solve_3c9b0459(x):
@@ -77,12 +73,8 @@ def solve_3c9b0459(x):
 """
 b91ae062.json: The input is a 3x3 matrix with different colours. 
 The solution is a matrix where the shape of each cell of the input matrix depends on the number of unique colours. Each cell of the input grid is repeated by the number of unique colours. The result matrix is of the shape (2*number of unique colours)x(2*number of unique colours).
-
 After fincing all the unique colours, the solve function iterates through the all the cells and repeats each cell by the number of unique colour.
-
 All the training and test cases are solved correctly.
-
-
 """
 def solve_b91ae062(x):
     # Find the number of unique colours
@@ -91,32 +83,30 @@ def solve_b91ae062(x):
     unique_colours = len(list(unique)) - 1
     result_col = list()
     # Fill the colours for each column.
-	for row in x:
+    for row in x:
         ele_list = list()
         for ele in row:
-		# Each colour in the input row is repeated as the number of unique colours except black.
+            # Each colour in the input row is repeated as the number of unique colours except black.
             for reps in range(0,unique_colours):
                 ele_list.append(ele)
         result_col.append(ele_list)
     
     # Fill the colours for each row.
-	result_row = list()
+    result_row = list()
     for r in result_col:
         for rep in range(0,unique_colours):
             result_row.append(r)
                         
     x = np.array(result_row)
         
-    return x	
+    return x
 
 """
 d9fac9be.json: The input is a matrix of varied shape. The matrix contains a figure of a 3x3 matrix.  
 The solution is the center element of this 3x3 matrix.
-
 The solve function will find the pattern for the 3x3 matrix inside the input matrix by using matrix slicing. Next, the center element of this matrix will be returned as the output.
-
 All the training and test cases are solved correctly.
-"""	
+"""
 def solve_d9fac9be(x):
     indicator = 0
     for val in range(len(x)):
@@ -128,7 +118,7 @@ def solve_d9fac9be(x):
                     indicator = 1
                     break
         # if the repeating pattern is found, stop the loop. This will be the result.
-		if indicator == 1:
+        if indicator == 1:
             break
     # center element of the sliced matrix        
     x = np.array(sliced_matrix[1][1]).reshape(1,1)
@@ -138,9 +128,7 @@ def solve_d9fac9be(x):
 """
 25d487eb.json: The inputs are matrix of varried shape containing a shape with 2 colours. One of the colour occurs only once.
 The solution is to fill all all the cells of the grid till the border in the opposite direction of the unique colour.
-
 After fincing the unique colour which occurs only once in the input matrix, the solve function finds the direction in which this unique colour needs to be filled. The direction and the position upto which the unique colour must be filled is found by using matrix slicing.
-
 All the training and test cases are solved correctly.
 """
 def solve_25d487eb(x):
@@ -161,7 +149,7 @@ def solve_25d487eb(x):
             # Values are added in the opposite direction 
             if x[idx][col - 1] == 0:
                 # Fill the values to the right of the last occurance of coloured value
-				# Find the index of the last coloured cell.
+                # Find the index of the last coloured cell.
                 index_last_non_zero = np.max(np.nonzero(x[idx]))
                 diff_indx = col_x - (index_last_non_zero+1)
                 temp_list = list(x[idx][:index_last_non_zero+1]) + list(([unique_val] * diff_indx))
@@ -169,7 +157,7 @@ def solve_25d487eb(x):
                 break
             elif x[idx][col + 1] == 0:
                 # Fill the values to the left from the start of the row to the first occurance of coloured value.
-				# Find the index of the first coloured cell.
+                # Find the index of the first coloured cell.
                 index_first_non_zero = np.min(np.nonzero(x[idx]))
                 temp_list = list([unique_val] * (index_first_non_zero)) + list(x[idx][index_first_non_zero:])
                 x[idx] = np.array(temp_list)
@@ -179,7 +167,7 @@ def solve_25d487eb(x):
                 left_col = x[:,:col]
                 right_col = x[:,col+1:]
                 col_val = x[:,col]
-				#Find the index of the first coloured cell.
+                #Find the index of the first coloured cell.
                 index_first_non_zero = np.min(np.nonzero(col_val))
                 temp_list = list([unique_val] * (index_first_non_zero)) + list(col_val[index_first_non_zero:])
                 x = np.column_stack((left_col,temp_list, right_col))
@@ -189,7 +177,7 @@ def solve_25d487eb(x):
                 left_col = x[:,:col]
                 right_col = x[:,col+1:]
                 col_val = x[:,col]
-				# Find the index of the last coloured cell.
+                # Find the index of the last coloured cell.
                 index_last_non_zero = np.max(np.nonzero(col_val))
                 diff_indx = row_x - (index_last_non_zero+1)
                 temp_list = list(col_val[:index_last_non_zero+1]) + list(([unique_val] * diff_indx))
@@ -201,9 +189,7 @@ def solve_25d487eb(x):
 """
 a61ba2ce.json: The input is a 13x13 matrix consisting of various figures of shape 2x2. 
 The solution is to join these sub-matrix such that the center elements of the solution matrix are all black. The solution matrix is of the shape 4x4. 
-
 The solve function finds and stores all the 2x2 matrices in the input matrix. All the permutations of these slices are verified, if any of the matrix results in the center elements being 0. If the center element is 0 for any of them, this is the output matrix.
-
 All the training and test cases are solved correctly.
 """	
 def solve_a61ba2ce(x):
@@ -215,11 +201,11 @@ def solve_a61ba2ce(x):
             if ele != 0 and ele not in colour_history:
                 colour_history.append(ele)
                 indx_ele = list(x[row]).index(ele)
-				# Slice a 2x2 matrix of the colour from the current index.
+                # Slice a 2x2 matrix of the colour from the current index.
                 slice_matrix = x[row:row+2, indx_ele: indx_ele+2]
                 count = np.count_nonzero(slice_matrix)
                 # Check if the matrix is sliced correctly. If not, slice the 2x2 matrix again, the current index being the end of the matrix.
-				if count != 3:
+                if count != 3:
                     slice_matrix = x[row:row+2, indx_ele-1: indx_ele+1]
                 silce_matrix_list.append(slice_matrix)
     
