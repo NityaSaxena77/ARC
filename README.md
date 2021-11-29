@@ -64,3 +64,6 @@ When your output grid is ready, click the green "Submit!" button to check your a
 After you've obtained the correct answer for the current test input grid, you can switch to the next test input grid for the task using the "Next test input" button (if there is any available; most tasks only have one test input).
 
 When you're done with a task, use the "load task" button to open a new task.
+
+### Hand-coding solution for ARC
+Handcoded solution for some of the json files in data/training were written in the source code (named as solve_* functions). As part of the code, the train and the test cases in the json file were seperated. All these cases are then passed to the solve_* functions for which it returns a dynamic solution. The solution is then validated with the output in the json file. If the solution matches with the output then the case passes and a true value is returned, else the case is failed and a false is returned.
