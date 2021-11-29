@@ -12,11 +12,20 @@ import re
 ### must be in the data/training directory, not data/evaluation.
 
 # The input is a 9X9 matrix, output is the top right corner values in 3x3 matrix.
+
+"""
+5bd6f4ac.json: The input is a 9X9 matrix of random colours. The solution to this is the top right corner values in 3x3 matrix.
+All the training and test cases are solved correctly.
+"""
 def solve_5bd6f4ac(x):
     # Slicing the input matrix
     x = x[:3,-3:]
     return x
-	
+
+"""
+3c9b0459.json: The input is a 3x3 matrix with different colours. The solution is to rotate the matrix clockwise twice.
+All the training and test cases are solved correctly.
+"""	
 def solve_3c9b0459(x):
     result = list()
     #swap columns
@@ -35,6 +44,11 @@ def solve_3c9b0459(x):
     x = np.array(result)
     return x
 
+"""
+b91ae062.json: The input is a 3x3 matrix with different colours. 
+The solution is a 6x6 matrix where the shape of each cell needs to be changed to 2x2.
+All the training and test cases are solved correctly.
+"""
 def solve_b91ae062(x):
     # Find the number of unique colours
     unique = np.unique(x)
@@ -57,6 +71,11 @@ def solve_b91ae062(x):
         
     return x	
 
+"""
+d9fac9be.json: The input is a matrix of varied shape. The matrix contains a figure of a 3x3 matrix.  
+The solution is the center element of this 3x3 matrix.
+All the training and test cases are solved correctly.
+"""	
 def solve_d9fac9be(x):
     indicator = 0
     for val in range(len(x)):
@@ -73,6 +92,13 @@ def solve_d9fac9be(x):
     x = np.array(sliced_matrix[1][1]).reshape(1,1)
     return x
 
+
+"""
+25d487eb.json: The inputs are matrix of varried shape containing a shape with 2 colours. One of the colour occurs only once.
+The solution is to fill all all the cells of the grid till the border in the opposite direction of the unique colour.
+
+All the training and test cases are solved correctly.
+"""
 def solve_25d487eb(x):
     # detect the anomaly colour
     anomaly_colour = 0
@@ -124,6 +150,11 @@ def solve_25d487eb(x):
         
     return x
 
+"""
+a61ba2ce.json: The input is a 13x13 matrix consisting of various figures of shape 2x2. 
+The solution is to join these sub-matrix such that the center elements of the solution matrix are all black. The solution matrix is of the shape 4x4. 
+All the training and test cases are solved correctly.
+"""	
 def solve_a61ba2ce(x):
     silce_matrix_list = list()
     colour_history = list()
