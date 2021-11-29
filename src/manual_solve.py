@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+#Name: Nitya Saxena
+#Student ID: 21230046
+#GIT Link: https://github.com/NityaSaxena77/ARC
+
 import os, sys
 import json
 import numpy as np
